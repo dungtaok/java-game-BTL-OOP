@@ -100,79 +100,90 @@ public class UI {
 	}
 
 	private void drawSubWindow(int x, int y, int width, int height, Graphics2D g2, int textIndex, int enemyType) {
-		String intro1 = "Nhấn nút ENTER để tiếp tục";
-		String intro2 = "Nhấn nút Q để chiến đấu";
-		
-		//điểu chỉnh lời thoại theo từng BOSS
-		if(enemyType == TORO)
-			enemy = "Ngưu Ma Vương";
-		else if(enemyType == BOSS2)
-			enemy = "Mộc Vân Kiếm Linh ";
-		else if(enemyType == BOSS3)
-			enemy = "Hắc Thuỷ Hành Giả";
-		else if(enemyType == BOSS4)
-			enemy = "Xích Diệm Ma Vương";
-		else if(enemyType == BOSSFINAL) {
-			enemy = "Kim Diện Hành Giả";
-			checkChat = false;
-		}
+        String intro1 = "Nhấn nút ENTER để tiếp tục";
+        String intro2 = "Nhấn nút Q để chiến đấu";
+        
+        //điểu chỉnh lời thoại theo từng BOSS
+        if(enemyType == TORO)
+            enemy = "Ngưu Ma Vương";
+        else if(enemyType == BOSS2)
+            enemy = "Mộc Vân Kiếm Linh ";
+        else if(enemyType == BOSS3)
+            enemy = "Hắc Thuỷ Hành Giả";
+        else if(enemyType == BOSS4)
+            enemy = "Xích Diệm Ma Vương";
+        else if(enemyType == BOSSFINAL) {
+            enemy = "Kim Diện Hành Giả";
+            checkChat = false;
+        }
 
-		//nen cua dialogue
-		Color c = new Color(0,0,0,100);
-		g2.setColor(c);
-		g2.fillRoundRect(x, y, width, height, 50, 35);
-		
-		//viền cua dialogue
-		c=new Color(255, 255, 255);
-		g2.setColor(c);
-		g2.setStroke(new BasicStroke(5));
-		g2.drawRoundRect(x+5, y + 5, width -10, height -10, 40, 25);
-		
-		//hiển thị nhân vật trả lời hội thoại
-		if(checkChat) {
-			g2.setFont(vt323);
-			g2.setColor(Color.red);
-			g2.setFont(g2.getFont().deriveFont(40F));
-			g2.drawString(player, x + 12*Game.SCALE, y + 25*Game.SCALE);
-		}else {
-			g2.setFont(vt323);
-			g2.setColor(Color.red);
-			g2.setFont(g2.getFont().deriveFont(40F));
-			g2.drawString(enemy, x + 12*Game.SCALE, y + 25*Game.SCALE);
-		}			
-		
-		//hướng dẫn thao tác cho người chơi
-		if(textIndex >= textLength-1) {
-			g2.setFont(vt323);
-			g2.setColor(Color.pink);
-			g2.setFont(g2.getFont().deriveFont(30F));
-			g2.drawString(intro2, x + 700, y + (int)(180*Game.SCALE));
-		}else {
-			g2.setFont(vt323);
-			g2.setColor(Color.pink);
-			g2.setFont(g2.getFont().deriveFont(30F));
-			g2.drawString(intro1, x + 700, y + (int)(180*Game.SCALE));
-		}	
-		
+        // Đảm bảo textIndex hợp lệ
+        if (textIndex < 0) {
+            System.out.println("Warning: Invalid textIndex in drawSubWindow: " + textIndex);
+            textIndex = 0;
+        }
+        if (textIndex >= text1.length) {
+            System.out.println("Warning: textIndex exceeds array bounds in drawSubWindow: " + textIndex);
+            textIndex = text1.length - 1;
+        }
 
-		//hiển thị nội dung cuộc hôi thoại
-		if(textIndex >= textLength)
-			textIndex = textLength -1;
-		drawText(text1, textIndex, g2, x + 10, y + (int)(65*Game.SCALE));
-		
-		
-	}
+        //nen cua dialogue
+        Color c = new Color(0,0,0,100);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 50, 35);
+        
+        //viền cua dialogue
+        c=new Color(255, 255, 255);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5, y + 5, width -10, height -10, 40, 25);
+        
+        //hiển thị nhân vật trả lời hội thoại
+        if(checkChat) {
+            g2.setFont(vt323);
+            g2.setColor(Color.red);
+            g2.setFont(g2.getFont().deriveFont(40F));
+            g2.drawString(player, x + 12*Game.SCALE, y + 25*Game.SCALE);
+        }else {
+            g2.setFont(vt323);
+            g2.setColor(Color.red);
+            g2.setFont(g2.getFont().deriveFont(40F));
+            g2.drawString(enemy, x + 12*Game.SCALE, y + 25*Game.SCALE);
+        }           
+        
+        //hướng dẫn thao tác cho người chơi
+        if(textIndex >= textLength-1) {
+            g2.setFont(vt323);
+            g2.setColor(Color.pink);
+            g2.setFont(g2.getFont().deriveFont(30F));
+            g2.drawString(intro2, x + 700, y + (int)(180*Game.SCALE));
+        }else {
+            g2.setFont(vt323);
+            g2.setColor(Color.pink);
+            g2.setFont(g2.getFont().deriveFont(30F));
+            g2.drawString(intro1, x + 700, y + (int)(180*Game.SCALE));
+        }   
+
+        // Hiển thị nội dung cuộc hôi thoại
+        drawText(text1, textIndex, g2, x + 10, y + (int)(65*Game.SCALE));
+    }
 	
 	private void drawText(String[] text, int index, Graphics2D g2, int x, int y) {
-		g2.setFont(vt323);
-		g2.setFont(g2.getFont().deriveFont(35F));
-		g2.setColor(Color.white);
-		
-		for(String line: text[index].split("\n")) {
-			g2.drawString(line, x + 12 *Game.SCALE, y);
-			y+= 40;
-		}
-	}
+        // Kiểm tra null và index hợp lệ
+        if (text == null || index < 0 || index >= text.length || text[index] == null) {
+            System.out.println("Warning: Invalid text array or index in drawText. Index: " + index);
+            return;
+        }
+
+        g2.setFont(vt323);
+        g2.setFont(g2.getFont().deriveFont(35F));
+        g2.setColor(Color.white);
+        
+        for(String line: text[index].split("\n")) {
+            g2.drawString(line, x + 12 *Game.SCALE, y);
+            y+= 40;
+        }
+    }
 	
 
 	//hiển thị đoạn giới thiệu cốt truyện

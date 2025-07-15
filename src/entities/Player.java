@@ -129,7 +129,7 @@ public class Player extends Entity {
         this.currentHealth = maxHealth;
         this.Shield = 0;
         this.maxShield = 8;
-        this.maxStamina = 100;
+        this.maxStamina = 1000000000;
         this.currentStamina = maxStamina;
         this.currentExp = 0;
         this.maxExp = 100;

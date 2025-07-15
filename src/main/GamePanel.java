@@ -7,12 +7,13 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import input.KeyboardInputs;
 import input.MouseInputs;
+import javafx.embed.swing.JFXPanel;
 import ui.UI;
 
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JFXPanel {
 
     private MouseInputs mouseInputs;
     private Game game;
@@ -37,11 +38,20 @@ public class GamePanel extends JPanel {
         game.render(g);
      
     }
-    
 
     public Game getGame() {
         return game;
     }
+
+    // public void switchToVideo(String videoPath){
+    //     setVisible(false);
+    //     GameWindow.getInstance().switchToVideo(videoPath);
+    // }
+
+    // public void switchToGame(){
+    //     setVisible(true);
+    //     GameWindow.getInstance().switchToGame();
+    // }
 
 }
 

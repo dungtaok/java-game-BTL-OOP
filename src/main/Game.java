@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.*;
+import java.io.File;
 
 import audio.AudioPlayer;
 import gameState.GameOptions;
@@ -13,7 +14,7 @@ import utilz.LoadSave;
 
 public class Game implements Runnable {
 	
-	
+	public static boolean gameEnd = false;
     private GameWindow gameWindow;
     private GamePanel gamePanel;
     private Thread gameThread;
@@ -28,6 +29,8 @@ public class Game implements Runnable {
     private AudioOptions audioOptions;
     private AudioPlayer audioPlayer;
 
+    private Runnable gameEndListener;
+
     public final static int TILES_DEFAULT_SIZE = 32;
     public final static float SCALE = 1.85f;
     public final static int TILES_IN_WIDTH = 26;
@@ -38,10 +41,13 @@ public class Game implements Runnable {
 
     public Game() {
         LoadSave.GetAllLevels();
+        System.out.println(GAME_WIDTH);
+        System.out.println(GAME_HEIGHT);
         initClasses();
 
         gamePanel = new GamePanel(this);
-        gameWindow = new GameWindow(gamePanel);
+        gameWindow = GameWindow.getInstance();
+        gameWindow.setGamePanel(gamePanel);
         gamePanel.setFocusable(true);
         gamePanel.requestFocus(true);
 
@@ -63,21 +69,35 @@ public class Game implements Runnable {
     }
 
     public void update() {
-        switch (Gamestate.state) {
-            case MENU:
-                menu.update();
-                break;
-            case PLAYING:
-                playing.update();
-                break;
-            case OPTIONS:
-                gameOptions.update();
-                break;
-            case QUIT:
-            default:
-                System.exit(0);
-                break;
+        if(gameEnd!=true){
+            switch (Gamestate.state) {
+                case MENU:
+                    menu.update();
+                    break;
+                case PLAYING:
+                    playing.update();
+                    break;
+                case OPTIONS:
+                    gameOptions.update();
+                    break;
+                case QUIT:
+                default:
+                    System.exit(0);
+                    break;
+    
+            }
+        }
 
+        if(gameEnd){
+            File videoFile = new File("res/LastGameScene.mp4");
+            // String videoPath = "D:/Download _ D/GameWukong/javaProject/LastGame'sScene.mp4";
+            String videoPath = videoFile.toURI().toString();
+            gameWindow.switchToVideo(gameWindow.getJFrame(), videoPath);
+            if(gameEndListener != null){
+                gameEndListener.run();
+            }
+            System.out.println("HHHHHHHHHHHHHHHHHHHHHHHHHH");
+            gameEnd = false;
         }
     }
 
@@ -145,6 +165,10 @@ public class Game implements Runnable {
 
     }
 
+    public void setGameEndListener(Runnable listener) {
+        this.gameEndListener = listener;
+    }    
+
     public void windowFocusLost() {
         if (Gamestate.state == Gamestate.PLAYING)
             playing.getPlayer().resetDirBooleans();
@@ -170,5 +194,13 @@ public class Game implements Runnable {
     
     public AudioPlayer getAudioPlayer() {
         return audioPlayer;
+    }
+
+    public boolean isGameEnd(){
+        return gameEnd;
+    }
+
+    public void setGameEnd(boolean a){
+        this.gameEnd = a;
     }
 }

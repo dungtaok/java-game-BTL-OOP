@@ -18,12 +18,12 @@ public abstract class Entity {
     protected boolean inAir = false;
     protected int maxHealth;
     protected int currentHealth;
-    protected int Shield;
-    protected int maxShield;
     protected int maxStamina;
     protected int currentStamina;
     protected int maxExp;
     protected int currentExp;
+    protected int Shield;
+    protected int maxShield;
     protected Rectangle2D.Float attackBox;
     protected float walkSpeed = 1.0f * Game.SCALE;
 

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import gameState.Gamestate;
 import main.Game;
 import utilz.LoadSave;
+import static main.Game.gameEnd;
 
 public class LevelManager {
 
@@ -24,6 +25,7 @@ public class LevelManager {
     public void loadNextLevel(){
         lvlIndex++;
         if(lvlIndex>=levels.size()){
+            gameEnd = true;
             lvlIndex=0;
             System.out.println("No more levels! Game Completed!");
             Gamestate.state=Gamestate.MENU;
