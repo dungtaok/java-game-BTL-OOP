@@ -1,7 +1,6 @@
 <h1>Bài tập lớn : Lập trình hướng đối tượng (IT3100)</h1>
 
-<p>Một tựa game 2D hành động, vượt màn, xây dựng bằng ngôn ngữ Java. Người chơi sẽ điều khiển nhân vật Tôn ngộ không đánh bại các yêu quái để trở nên mạnh hơn và tiêu diệt boss ở mỗi màn. Game có giao diện menu, âm thanh, và kết bằng video cuối game.</p>
-
+<p>Một tựa game 2D hành động, vượt màn, xây dựng bằng ngôn ngữ Java kết hợp JavaFx. Người chơi sẽ điều khiển nhân vật Tôn ngộ không đánh bại các yêu quái để trở nên mạnh hơn và tiêu diệt boss ở mỗi màn. Game có giao diện menu, âm thanh, và kết bằng video cuối game.</p>
 <h2>Tính năng nổi bật</h2>
 <ul>
   <li><h3>Di chuyển và sử dụng kĩ năng: </h3>
