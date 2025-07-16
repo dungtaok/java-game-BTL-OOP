@@ -14,5 +14,9 @@
       <p>Các màn chơi và boss được bố trí theo Kim, Mộc, Thuỷ, Hoả, Thổ</p>
       <img src="res/enemies.png" />
   </li>
+  <li><h3>Gameplay</h3>
+      <p>Người chơi điều khiển nhân vật chính tham gia chiến đấu, đánh bại tất cả các yêu quái và boss để qua màn</p>
+      <img src="res/gameplay.png" />
+  </li>
   
 </ul>
